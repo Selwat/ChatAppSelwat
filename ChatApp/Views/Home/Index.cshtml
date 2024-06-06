@@ -1,0 +1,37 @@
+﻿@model IndexVm
+@{
+    ViewData["Title"] = "Home Page";
+    var userName = Model.UserName;
+}
+
+<input hidden id="user" value="@userName"/>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome @userName</h1>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <input placeholder="Message" class="form-control" id="userMessage"/>
+    </div>
+    <div class="col-md-6 offset-md-6 col-12 py-3">
+        <button id="btnSend" class="btn btn-primary w-100">Send</button>
+    </div>
+    <div class="col-12">
+        <ul class="list-unstyled" id="userMessages">
+
+        </ul>
+    </div>
+    <ul id="messages">
+    @foreach (var message in Model.Messages)
+    {
+        <li><strong>@message.UserName</strong>: @message.Message <em>(@message.CreatedOn)</em></li>
+    }
+    </ul>
+</div>
+
+@section Scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="js/chatApp.js"></script>
+}
