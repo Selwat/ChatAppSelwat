@@ -17,6 +17,7 @@
             });
 
             $(userMessage).val('');
+            location.reload();
         } catch (err) {
             console.error(err);
         }
@@ -43,14 +44,24 @@
     });
 
     connection.on("ReceiveMessage", (payload) => {
-        const {userName, message, formattedCreatedOn} = payload;
-        const li = document.createElement("li");
-        li.innerHTML = `<strong>[${formattedCreatedOn}], ${userName}:</strong>${message}`;
-        document.getElementById("userMessages").appendChild(li);
+        const { userName, message, formattedCreatedOn } = payload;
+        const div = document.createElement("li");
+        div.innerHTML = `
+         <div class="d-flex flex-row p-3">
+            <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30">
+            <div class="flex flex-col ml-2">
+                <div><strong>${userName}</strong></div>
+                <div class="bg-white p-1">
+                    <div class="mt-1 ml-3">${message}</div>
+                </div>
+                <div class="text-muted mt-1" style="font-size: 11px;">${formattedCreatedOn}</div>
+            </div>
+         </div>
+        `;
+        document.getElementById("userMessages").appendChild(div);
+        location.reload();
     });
 
-// Start the connection.
+    // Start the connection.
     start();
 })();
-
-

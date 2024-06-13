@@ -5,17 +5,19 @@
     Layout = "_Layout";
 }
 
+<div style="margin: auto; margin-top:100px; width: 300px; height: 400px; display:flex; justify-content: center; align-items: center; flex-direction: column; background: white; gap: 20px; border-radius: 25px;">
 <div class="text-center">
-    <h2>Login Page</h2>
+    <h2>Wpisz swoje imie</h2>
 </div>
 
 
-<form asp-action="SignIn" method="post" class="row">
-    <div class="col-12 col-md-6 offset-md-3">
-        <input class="form-control" asp-for="UserName"  placeholder="Login"/>
+<form asp-action="SignIn" method="post" style="display: flex; justify-content: center; align-items: center;  flex-direction: column; gap: 5px">
+    <div>
+        <input class="form-control" asp-for="UserName"  placeholder="Imie" style="width: 200px;"/>
         <span asp-validation-for="UserName" class="text-danger"></span>
     </div>
-    <div class="col-12 col-md-6 offset-md-3 py-3">
-        <button class="btn btn-success w-100">Login</button>
+    <div>
+        <button class="btn btn-success w-150">Wejdź do czatu...</button>
     </div>
 </form>
+</div>

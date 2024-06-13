@@ -3,35 +3,100 @@
     ViewData["Title"] = "Home Page";
     var userName = Model.UserName;
 }
-
 <input hidden id="user" value="@userName"/>
+    <style>
+        .card {
+            width: 550px;
+            border: none;
+            border-radius: 15px;
+        }
+        .adiv {
+            background: #04CB28;
+            border-radius: 5px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+            font-size: 17px;
+            height: 46px;
+        }
+        .chat {
+            border: none;
+            background: #E2FFE8;
+            font-size: 15px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .bg-white {
+            border: 1px solid #E7E7E9;
+            font-size: 15px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .myvideo img {
+            border-radius: 20px;
+        }
+        .dot {
+            font-weight: bold;
+        }
+        .form-control {
+            border: 2px solid green;
+            border-radius: 12px;
+            font-size: 15px;
+        }
+        .form-control:focus {
+            box-shadow: none;
+        }
+        .form-control::placeholder {
+            font-size: 15px;
+            color: #C4C4C4;
+        }
+        .messages-container {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+    </style>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome @userName</h1>
-</div>
 
-<div class="row">
-    <div class="col-12">
-        <input placeholder="Message" class="form-control" id="userMessage"/>
-    </div>
-    <div class="col-md-6 offset-md-6 col-12 py-3">
-        <button id="btnSend" class="btn btn-primary w-100">Send</button>
-    </div>
-    <div class="col-12">
-        <ul class="list-unstyled" id="userMessages">
+    <div class="container d-flex justify-content-center">
+        <div class="card mt-5">
+            <div class="d-flex flex-row justify-content-between p-3 adiv text-white">
+                <i class="fas fa-chevron-left"></i>
+                <span>Live chat</span>
+                <i class="fas fa-times"></i>
+            </div>
 
-        </ul>
+
+            <div class="messages-container px-3 py-2">
+                <ul id="messages" class="list-unstyled" style="font-family: 'Times New Roman', Serif;">
+                    @foreach (var message in Model.Messages)
+                    {
+                        <div id="userMessages"></div>
+                        <div class="d-flex flex-row p-3">
+                            <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30">
+                            <div class="flex flex-col ml-2">
+                                <div><strong>@message.UserName</strong></div>
+                                <div class="bg-white p-1 pl-4" >
+                                    <div class="mt-1 ml-5 pl-3" style="margin-left: 5px">@message.Message</div>
+                                </div>
+                                <div class="text-muted mt-1" style="font-size: 11px;">@message.CreatedOn.ToString("g")</div>
+                            </div>
+                        </div>
+                    }
+                </ul>
+            </div>
+            <div class="form-group px-3 mt-3">
+                <input placeholder="Message" class="form-control " id="userMessage"/>
+            </div>
+            <div class="col-md-6 offset-md-6 col-12 py-3">
+                <button id="btnSend" class="btn btn-primary w-100" style="background: #04CB28">Send</button>
+            </div>
+        </div>
     </div>
-    <ul id="messages">
-    @foreach (var message in Model.Messages)
+
+    @section Scripts
     {
-        <li><strong>@message.UserName</strong>: @message.Message <em>(@message.CreatedOn)</em></li>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+        <script src="~/js/chatApp.js"></script>
     }
-    </ul>
-</div>
 
-@section Scripts
-{
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
-    <script src="js/chatApp.js"></script>
-}
